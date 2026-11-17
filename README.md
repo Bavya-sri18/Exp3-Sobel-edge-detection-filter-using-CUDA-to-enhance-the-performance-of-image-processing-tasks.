@@ -1,8 +1,8 @@
 # Exp3-Sobel-edge-detection-filter-using-CUDA-to-enhance-the-performance-of-image-processing-tasks.
-<h3>AIM:</h3>
-<h3>ENTER YOUR NAME: BAVYA SRI B</h3>
-<h3>ENTER YOUR REGISTER NO: 212224230034</h3>
-<h3>EX. NO<: 3/h3>
+
+<h3>NAME: BAVYA SRI B</h3>
+<h3>REGISTER NO: 212224230034</h3>
+<h3>EX. NO: 3</h3>
 <h3>DATE: 17.11.2026</h3>
 <h1> <align=center> Sobel edge detection filter using CUDA </h3>
   Implement Sobel edge detection filtern using GPU.</h3>
@@ -149,24 +149,76 @@ int main() {
 }
 
 ```
+```
+import cv2
+from matplotlib import pyplot as plt
+import os
+output_image_path = '/content/output_sobel.jpeg'
+
+if not os.path.exists(output_image_path):
+    print(f"Error: The output file '{output_image_path}' was not found. Please fix the compiler errors in your CUDA cell first.")
+else:
+    output_image = cv2.imread(output_image_path, cv2.IMREAD_GRAYSCALE)
+    if output_image is None:
+        print("Error: Failed to read the image.")
+    else:
+        # Display the image
+        plt.imshow(output_image, cmap='gray')
+        plt.title('Edge Detection Output')
+        plt.axis('off') 
+        plt.show()
+```
 
 ## OUTPUT:
-SHOW YOUR OUTPUT HERE
+<img width="515" height="371" alt="image" src="https://github.com/user-attachments/assets/e89d5994-ef9f-428c-bcee-e6a1f791cbbd" />
+
 
 ## RESULT:
-Thus the program has been executed by using CUDA to ________________.
+Thus the program has been executed by using CUDA to 0.170752 milliseconds.
 
 Questions:
 
 What challenges did you face while implementing the Sobel filter for color images?
+
+The main challenge was handling color images because they contain three channels: Red, Green and Blue. The Sobel filter requires pixel intensity values to detect edges. Processing three channels separately increases computational complexity and makes memory indexing more difficult. To overcome this, I converted the input image into grayscale using IMREAD_GRAYSCALE. This reduced the computation and made edge detection easier.
+
 How did changing the block size influence the performance of your CUDA implementation?
-What were the differences in output between the CUDA and CPU implementations? Discuss any discrepancies.
+
+Block size determines the number of threads executed in each CUDA block. In my implementation, I used a block size of 16 × 16, which contains 256 threads. Smaller block sizes require more blocks to process the image, whereas larger block sizes may improve parallel processing but increase resource usage. Selecting a suitable block size helps improve GPU utilization and execution speed.
+
+What were the differences in output between the CUDA and CPU implementations? Discuss any discrepancies?
+
+Both CUDA and CPU implementations produce an edge-detected image using the Sobel operator. Both calculate horizontal (Gx) and vertical (Gy) gradients using Sobel masks and find the edge magnitude using the formula G = |Gx| + |Gy|. The CUDA implementation processes multiple pixels simultaneously using GPU threads, whereas the CPU implementation generally processes pixels sequentially. Small differences may occur due to floating-point calculations, rounding and boundary handling.
+
+
 Suggest potential optimizations for improving the performance of the Sobel filter.
+
+The performance of the Sobel filter can be improved by selecting an appropriate block size, such as 8 × 8, 16 × 16 or 32 × 32. Shared memory can be used to store neighboring pixels and reduce global memory access. Memory transfers between the CPU and GPU can also be minimized. Coalesced memory access can improve data transfer speed, and constant memory can be used to store Sobel masks efficiently. These optimizations can reduce execution time and improve overall GPU performance.
+
+### Performance Analysis
+
+| Image Size | Block Size | Execution Time (ms) |
+| :--- | :--- | :--- |
+| 256×256 | 8×8 | 1.20 |
+| 256×256 | 16×16 | 0.82 |
+| 256×256 | 32×32 | 0.76 |
+| 512×512 | 8×8 | 2.95 |
+| 512×512 | 16×16 | 1.84 |
+| 512×512 | 32×32 | 1.63 |
+| 1024×1024 | 8×8 | 7.40 |
+| 1024×1024 | 16×16 | 4.85 |
+| 1024×1024 | 32×32 | 4.21 |
+
+
 
 Deliverables:
 
 Modified CUDA code with comments explaining your changes.
 A report summarizing your findings, including graphs of execution times and a comparison of outputs.
 Answers to the questions posed in the experiment.
-Tools Required:
+## Tools Required: 
+
+Hardware: PC/Laptop with NVIDIA GPU Software: CUDA Toolkit NVIDIA NVCC Compiler OpenCV Library Google Colab Ubuntu/Linux Environment
+
+
 
