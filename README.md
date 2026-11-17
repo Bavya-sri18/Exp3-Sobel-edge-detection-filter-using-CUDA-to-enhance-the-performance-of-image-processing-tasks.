@@ -170,6 +170,11 @@ else:
 ```
 
 ## OUTPUT:
+
+### ORIGINAL IMAGE:
+<img width="679" height="451" alt="butterfly" src="https://github.com/user-attachments/assets/e8a380b9-ac1e-4790-8872-484e9cdf2ad5" />
+
+### OUTPUT IMAGE:
 <img width="515" height="371" alt="image" src="https://github.com/user-attachments/assets/e89d5994-ef9f-428c-bcee-e6a1f791cbbd" />
 
 
